@@ -7,10 +7,10 @@ public class Review {
 
     private String reviewerName;
     private String gameName;
-    private int score;
+    private double score;
     private String body;
 
-    public Review(String reviewerName,String gameName, int score, String body) {
+    public Review(String reviewerName, String gameName, double score, String body) {
         setReviewerName(reviewerName);
         setGameName(gameName);
         setScore(score);
@@ -22,7 +22,11 @@ public class Review {
     }
 
     public void setGameName(String gameName) {
-        this.gameName = gameName;
+        if (gameName != null && !gameName.isEmpty()) {
+            this.gameName = gameName;
+        } else {
+            throw new DomainException("The game name must be filled in");
+        }
     }
 
     public String getReviewerName() {
@@ -30,15 +34,23 @@ public class Review {
     }
 
     public void setReviewerName(String reviewerName) {
-        this.reviewerName = reviewerName;
+        if (reviewerName != null && !reviewerName.isEmpty()) {
+            this.reviewerName = reviewerName;
+        } else {
+            throw new DomainException("The reviewer name must be filled in");
+        }
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore(double score) {
+        if (score >= 0 && score <= 10) {
+            this.score = score;
+        } else {
+            throw new DomainException("The score must be between 0 and 10");
+        }
     }
 
     public String getBody() {
@@ -46,14 +58,18 @@ public class Review {
     }
 
     public void setBody(String body) {
-        this.body = body;
+        if(body!=null&&!body.isEmpty()) {
+            this.body = body;
+        }else{
+            throw new DomainException("The review body may not be empty");
+        }
     }
 
     @Override
     public boolean equals(Object o) {
         if (o instanceof Review) {
             Review a = (Review) o;
-            if (this.getGameName().equals(a.getGameName())&&this.getReviewerName().equals(a.getReviewerName())) {
+            if (this.getGameName().equals(a.getGameName()) && this.getReviewerName().equals(a.getReviewerName()) && this.getScore() == a.getScore() && this.getBody().equals(a.getBody())) {
                 return true;
             }
         }

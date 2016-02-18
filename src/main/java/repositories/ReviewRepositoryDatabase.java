@@ -19,6 +19,10 @@ public class ReviewRepositoryDatabase implements ReviewRepository {
 
     }
 
+    public void update(Review oldReview, Review newReview) {
+
+    }
+
     public void remove(Review review) {
 
     }

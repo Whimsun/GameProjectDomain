@@ -8,11 +8,12 @@ import java.util.ArrayList;
 public class Game {
     private String name;
     private String genre;
-    private ArrayList<Review> reviews = new ArrayList<Review>();
+    private ServiceFacade facade;
 
-    public Game(String name, String genre) {
+    public Game(String name, String genre, ServiceFacade facade) {
         setName(name);
         setGenre(genre);
+        this.facade=facade;
     }
 
     public String getName() {
@@ -20,7 +21,7 @@ public class Game {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if( name!=null){this.name = name;}else throw new DomainException("name is empty");
     }
 
     public String getGenre() {
@@ -28,14 +29,34 @@ public class Game {
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        if(genre!=null){this.genre = genre;}else throw new DomainException("genre is empty");
     }
 
     public double getAverageScore() {
-        int totalScore = 0;
+        double totalScore = 0;
+        ArrayList<Review> reviews=facade.getGameReviews(this.name);
         for (Review review : reviews) {
             totalScore += review.getScore();
         }
         return totalScore / reviews.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Game game = (Game) o;
+
+        if (!name.equals(game.name)) return false;
+        return genre.equals(game.genre);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + genre.hashCode();
+        return result;
     }
 }

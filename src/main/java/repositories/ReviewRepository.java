@@ -10,5 +10,6 @@ import java.util.ArrayList;
 public interface ReviewRepository {
     ArrayList<Review> getGameReviews(String gameName);
     void add(Review review);
+    void update(Review oldReview,Review newReview);
     void remove(Review review);
 }
