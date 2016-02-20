@@ -24,7 +24,7 @@ public class GameRepositoryArrayList implements GameRepository {
     public void add(Game game) {
         if (game != null) {
             games.add(game);
-        }
+        }else throw new RepositoryException();
     }
 
     public void update(Game prevGame, Game newGame) {

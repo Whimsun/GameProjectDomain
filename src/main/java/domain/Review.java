@@ -10,6 +10,14 @@ public class Review {
     private double score;
     private String body;
 
+    public Review(){
+
+    }
+
+    public Review(String reviewerName, String gameName){
+        this(reviewerName,gameName,5.0,"Default");
+    }
+
     public Review(String reviewerName, String gameName, double score, String body) {
         setReviewerName(reviewerName);
         setGameName(gameName);
@@ -69,10 +77,17 @@ public class Review {
     public boolean equals(Object o) {
         if (o instanceof Review) {
             Review a = (Review) o;
-            if (this.getGameName().equals(a.getGameName()) && this.getReviewerName().equals(a.getReviewerName()) && this.getScore() == a.getScore() && this.getBody().equals(a.getBody())) {
+            if (this.getGameName().equals(a.getGameName()) && this.getReviewerName().equals(a.getReviewerName())) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = reviewerName.hashCode();
+        result = 31 * result + gameName.hashCode();
+        return result;
     }
 }

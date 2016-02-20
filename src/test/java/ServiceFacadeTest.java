@@ -62,7 +62,6 @@ public class ServiceFacadeTest {
         facade.updateReview(review,newreview);
         ArrayList<Review> reviews=facade.getGameReviews(review.getGameName());
         Assert.assertTrue(reviews.contains(newreview));
-        Assert.assertFalse(reviews.contains(review));
     }
     
     @Test

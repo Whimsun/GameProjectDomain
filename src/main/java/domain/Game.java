@@ -10,10 +10,14 @@ public class Game {
     private String genre;
     private ServiceFacade facade;
 
+    public Game(){
+
+    }
+
     public Game(String name, String genre, ServiceFacade facade) {
         setName(name);
         setGenre(genre);
-        this.facade=facade;
+        setFacade(facade);
     }
 
     public String getName() {
@@ -39,6 +43,12 @@ public class Game {
             totalScore += review.getScore();
         }
         return totalScore / reviews.size();
+    }
+
+    public void setFacade(ServiceFacade facade) {
+        if(facade!=null) {
+            this.facade = facade;
+        }else{throw new DomainException("Facade failure");}
     }
 
     @Override
