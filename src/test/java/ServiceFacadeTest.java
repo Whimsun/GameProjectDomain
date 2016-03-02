@@ -22,9 +22,9 @@ public class ServiceFacadeTest {
 
     @Before
     public void initVariables() {
-        facade = new ServiceFacade();
-        gameService=new GameService(facade);
-        reviewService=new ReviewService();
+        facade = new ServiceFacade("fake");
+        gameService=new GameService(facade,"fake");
+        reviewService=new ReviewService("fake");
         review=new Review("TestReviewer","Test",9.5,"meh");
         game =new Game("Test","TestGenre",facade);
     }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class ReviewService {
     private ReviewRepository reviewRepository;
 
-    public ReviewService() {
-        reviewRepository = ReviewRepositoryFactory.createRepository("fake");
+    public ReviewService(String repositoryType) {
+        reviewRepository = ReviewRepositoryFactory.createRepository(repositoryType);
     }
 
     public ArrayList<Review> getGameReviews(String gameName) {

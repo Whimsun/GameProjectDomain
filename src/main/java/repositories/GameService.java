@@ -13,8 +13,8 @@ public class GameService {
     private GameRepository gameRepository;
     private ServiceFacade facade;
 
-    public GameService(ServiceFacade facade){
-        gameRepository = GameRepositoryFactory.createRepository("fake",facade);
+    public GameService(ServiceFacade facade,String repositoryType){
+        gameRepository = GameRepositoryFactory.createRepository(repositoryType,facade);
         this.facade=facade;
     }
 

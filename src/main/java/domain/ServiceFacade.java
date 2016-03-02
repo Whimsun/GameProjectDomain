@@ -11,9 +11,9 @@ public class ServiceFacade {
     private ReviewService reviewService;
     private GameService gameService;
 
-    public ServiceFacade(){
-        setReviewService(new ReviewService());
-        setGameService(new GameService(this));
+    public ServiceFacade(String repositoryType){
+        setGameService(repositoryType);
+        setReviewService(repositoryType);
     }
 
     public ReviewService getReviewService() {
@@ -24,8 +24,16 @@ public class ServiceFacade {
         this.reviewService = reviewService;
     }
 
+    public void setReviewService(String type) {
+        this.reviewService = new ReviewService(type);
+    }
+
     public GameService getGameService() {
         return gameService;
+    }
+
+    public void setGameService(String type) {
+        this.gameService = new GameService(this,type);
     }
 
     public void setGameService(GameService gameService) {

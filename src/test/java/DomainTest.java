@@ -21,9 +21,7 @@ public class DomainTest {
 
     @Before
     public void initVariables() {
-        facade = new ServiceFacade();
-        gameService=new GameService(facade);
-        reviewService=new ReviewService();
+        facade = new ServiceFacade("fake");
         name="Junit";
         genre="Java";
         game=new Game(name,genre,facade);
