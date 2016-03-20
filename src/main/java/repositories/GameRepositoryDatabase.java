@@ -3,13 +3,14 @@ package repositories;
 import domain.Game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Tim on 17/02/2016.
  */
 public class GameRepositoryDatabase implements GameRepository{
 
-    public ArrayList<Game> getAllGames() {
+    public Collection<Game> getAllGames() {
         return null;
     }
 

@@ -4,6 +4,7 @@ import domain.Game;
 import domain.ServiceFacade;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -16,8 +17,8 @@ public class GameRepositoryHashMap implements GameRepository {
     public GameRepositoryHashMap() {
     }
 
-    public ArrayList<Game> getAllGames() {
-        return (ArrayList<Game>) games.values();
+    public Collection<Game> getAllGames() {
+        return games.values();
     }
 
     public Game getGame(int gameID) {

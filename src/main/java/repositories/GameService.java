@@ -3,6 +3,7 @@ package repositories;
 import domain.Game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Tim on 17/02/2016.
@@ -22,7 +23,7 @@ public class GameService {
     public void add(Game game){
         gameRepository.add(game);
     }
-    public ArrayList<Game>getAll(){
+    public Collection<Game> getAll(){
         return gameRepository.getAllGames();
     }
     public void update(int gameID,String name,String Genre){
