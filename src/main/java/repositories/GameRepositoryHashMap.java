@@ -15,6 +15,8 @@ public class GameRepositoryHashMap implements GameRepository {
     private ReviewService service;
 
     public GameRepositoryHashMap() {
+        Game defaultGame=new Game("Metal Gear Solid","Stealth");
+        games.put(defaultGame.getGameID(),defaultGame);
     }
 
     public Collection<Game> getAllGames() {

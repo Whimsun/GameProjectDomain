@@ -1,8 +1,7 @@
 package domain;
 
 import repositories.*;
-
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Tim on 17/02/2016.
@@ -40,7 +39,7 @@ public class ServiceFacade {
         this.gameService = gameService;
     }
 
-    public ArrayList<Game> getAllGames(){
+    public Collection<Game> getAllGames(){
         return gameService.getAll();
     }
 
