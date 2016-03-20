@@ -14,8 +14,8 @@ public class ReviewService {
         reviewRepository = ReviewRepositoryFactory.createRepository(repositoryType);
     }
 
-    public ArrayList<Review> getGameReviews(String gameName) {
-        return getReviewRepository().getGameReviews(gameName);
+    public Review getReview(int reviewID) {
+        return getReviewRepository().getReview(reviewID);
     }
 
     public ReviewRepository getReviewRepository() {
@@ -30,11 +30,15 @@ public class ReviewService {
         reviewRepository.add(review);
     }
 
-    public void update(Review prevReview, Review newReview) {
-        reviewRepository.update(prevReview, newReview);
+    public void update(int reviewID, String reviewerName, double score, String body) {
+        reviewRepository.update(reviewID,reviewerName,score,body);
     }
 
-    public void remove(Review review) {
-        reviewRepository.remove(review);
+    public void remove(int reviewID) {
+        reviewRepository.remove(reviewID);
+    }
+
+    public void removeAllOfGame(int gameID){
+        reviewRepository.removeAllOfGame(gameID);
     }
 }

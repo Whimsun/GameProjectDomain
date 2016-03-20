@@ -8,8 +8,9 @@ import java.util.ArrayList;
  * Created by Tim on 14/02/2016.
  */
 public interface ReviewRepository {
-    ArrayList<Review> getGameReviews(String gameName);
+    Review getReview(int reviewID);
     void add(Review review);
-    void update(Review oldReview,Review newReview);
-    void remove(Review review);
+    void update(int reviewID, String reviewerName,double score,String body);
+    void remove(int reviewID);
+    void removeAllOfGame(int gameID);
 }

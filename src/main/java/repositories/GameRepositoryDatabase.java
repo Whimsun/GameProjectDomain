@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * Created by Tim on 17/02/2016.
  */
 public class GameRepositoryDatabase implements GameRepository{
-    public ArrayList<Game> getGameReviews() {
+
+    public ArrayList<Game> getAllGames() {
         return null;
     }
 
-    public ArrayList<Game> getGames() {
+    public Game getGame(int gameID) {
         return null;
     }
 
@@ -20,11 +21,11 @@ public class GameRepositoryDatabase implements GameRepository{
 
     }
 
-    public void update(Game prevGame, Game newGame) {
+    public void update(int gameID, String name, String genre) {
 
     }
 
-    public void remove(Game game) {
+    public void remove(int gameID) {
 
     }
 }

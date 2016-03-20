@@ -1,7 +1,6 @@
 package repositories;
 
 import domain.Game;
-import domain.ServiceFacade;
 
 import java.util.ArrayList;
 
@@ -11,25 +10,27 @@ import java.util.ArrayList;
 public class GameService {
 
     private GameRepository gameRepository;
-    private ServiceFacade facade;
 
-    public GameService(ServiceFacade facade,String repositoryType){
-        gameRepository = GameRepositoryFactory.createRepository(repositoryType,facade);
-        this.facade=facade;
+    public GameService(String repositoryType){
+        gameRepository = GameRepositoryFactory.createRepository(repositoryType);
+    }
+
+    public Game getGame(int gameID){
+        return gameRepository.getGame(gameID);
     }
 
     public void add(Game game){
         gameRepository.add(game);
     }
     public ArrayList<Game>getAll(){
-        return gameRepository.getGames();
+        return gameRepository.getAllGames();
     }
-    public void update(Game prevGame,Game newGame){
-        gameRepository.update(prevGame,newGame);
+    public void update(int gameID,String name,String Genre){
+        gameRepository.update(gameID,name,Genre);
     }
 
-    public void remove(Game game){
-        gameRepository.remove(game);
+    public void remove(int gameID){
+        gameRepository.remove(gameID);
     }
 
     public GameRepository getGameRepository() {
@@ -37,7 +38,7 @@ public class GameService {
     }
 
     public void setGameRepository(String repositoryType) {
-        this.gameRepository = GameRepositoryFactory.createRepository(repositoryType,facade);
+        this.gameRepository = GameRepositoryFactory.createRepository(repositoryType);
 
     }
 }

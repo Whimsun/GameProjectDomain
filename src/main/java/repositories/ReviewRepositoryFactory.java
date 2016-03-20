@@ -6,7 +6,7 @@ package repositories;
 public class ReviewRepositoryFactory {
     public static ReviewRepository createRepository(String repositoryType){
         if(repositoryType.equals("fake")){
-            return new ReviewRepositoryArrayList();
+            return new ReviewRepositoryHashMap();
         }
         if(repositoryType.equals("database")) {
             return new ReviewRepositoryDatabase();

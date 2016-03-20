@@ -11,7 +11,8 @@ public class ReviewRepositoryDatabase implements ReviewRepository {
     public ReviewRepositoryDatabase() {
     }
 
-    public ArrayList<Review> getGameReviews(String gameName) {
+
+    public Review getReview(int reviewID) {
         return null;
     }
 
@@ -19,11 +20,15 @@ public class ReviewRepositoryDatabase implements ReviewRepository {
 
     }
 
-    public void update(Review oldReview, Review newReview) {
+    public void update(int reviewID, String reviewerName, double score, String body) {
 
     }
 
-    public void remove(Review review) {
+    public void remove(int reviewID) {
+
+    }
+
+    public void removeAllOfGame(int GameID) {
 
     }
 }

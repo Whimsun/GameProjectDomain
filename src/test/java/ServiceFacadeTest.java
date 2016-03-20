@@ -23,10 +23,10 @@ public class ServiceFacadeTest {
     @Before
     public void initVariables() {
         facade = new ServiceFacade("fake");
-        gameService=new GameService(facade,"fake");
+        gameService=new GameService("fake");
         reviewService=new ReviewService("fake");
-        review=new Review("TestReviewer","Test",9.5,"meh");
-        game =new Game("Test","TestGenre",facade);
+        game =new Game("Test","TestGenre");
+        review=new Review("TestReviewer",game,9.5,"meh");
     }
 
     @Test
@@ -42,56 +42,55 @@ public class ServiceFacadeTest {
     }
 
     @Test
-    public void test_addReview_works(){
-        facade.addReview(review);
-        ArrayList<Review> reviews=facade.getGameReviews(review.getGameName());
-        Assert.assertTrue(reviews.contains(review));
-    }
-    
-    
-    @Test
     public void test_addGame_works(){
         facade.addGame(game);
-        ArrayList<Game> games=facade.getAllGames();
-        Assert.assertTrue(games.contains(game));
+        Game gameToCheck=facade.getGame(game.getGameID());
+        Assert.assertEquals(game,gameToCheck);
+    }
+
+    @Test
+    public void test_addReview_works(){
+        facade.addGame(game);
+        facade.addReview(review);
+        Review reviewToCheck=facade.getReview(review.getReviewID());
+        Assert.assertEquals(review,reviewToCheck);
     }
 
     @Test
     public void test_updateReview_works(){
-        Review newreview=new Review("TestReviewer","Test",2.3,"meh");
-        facade.updateReview(review,newreview);
-        ArrayList<Review> reviews=facade.getGameReviews(review.getGameName());
-        Assert.assertTrue(reviews.contains(newreview));
+        facade.addGame(game);
+        facade.addReview(review);
+        facade.updateReview(review.getReviewID(),"Gr8reviewer",8.8,"trololo");
+        Review reviewToCheck=facade.getReview(review.getReviewID());
+        Assert.assertTrue(reviewToCheck.getReviewerName().equals("Gr8reviewer"));
+        Assert.assertTrue(reviewToCheck.getScore()==8.8);
+        Assert.assertTrue(reviewToCheck.getBody().equals("trololo"));
     }
     
     @Test
     public void test_updateGame_works(){
-        Game newGame=new Game("Test","TestGenre2",facade);
-        facade.updateGame(game,newGame);
-        ArrayList<Game> games=facade.getAllGames();
-        Assert.assertTrue(games.contains(newGame));
-        Assert.assertFalse(games.contains(game));
-
+        facade.addGame(game);
+        facade.updateGame(game.getGameID(),"goodname","goodgenre");
+        Game gameToCheck=facade.getGame(game.getGameID());
+        Assert.assertTrue(gameToCheck.getName().equals("goodname"));
+        Assert.assertTrue(gameToCheck.getGenre().equals("goodgenre"));
     }
 
     @Test
     public void test_removeReview_works(){
+        facade.addGame(game);
         facade.addReview(review);
-        ArrayList<Review> reviews=facade.getGameReviews(review.getGameName());
-        Assert.assertTrue(reviews.contains(review));
-        facade.removeReview(review);
-        reviews=facade.getGameReviews(review.getGameName());
-        Assert.assertFalse(reviews.contains(review));
+        Game gameToCheck=review.getGame();
+        facade.removeReview(review.getReviewID());
+        Assert.assertFalse(gameToCheck.getReviews().contains(review));
+        Assert.assertTrue(facade.getReview(review.getReviewID())==null);
     }
 
     @Test
     public void test_removeGame_works(){
         facade.addGame(game);
-        ArrayList<Game> games=facade.getAllGames();
-        Assert.assertTrue(games.contains(game));
-        facade.removeGame(game);
-        games=facade.getAllGames();
-        Assert.assertFalse(games.contains(game));
+        facade.removeGame(game.getGameID());
+        Assert.assertTrue(facade.getGame(game.getGameID())==null);
     }
 
 }

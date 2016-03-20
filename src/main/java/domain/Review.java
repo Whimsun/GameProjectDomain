@@ -1,12 +1,15 @@
 package domain;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by Tim on 14/02/2016.
  */
 public class Review {
-
+    static AtomicInteger nextReviewID = new AtomicInteger();
+    private int reviewID;
+    private Game game;
     private String reviewerName;
-    private String gameName;
     private double score;
     private String body;
 
@@ -14,26 +17,27 @@ public class Review {
 
     }
 
-    public Review(String reviewerName, String gameName){
-        this(reviewerName,gameName,5.0,"Default");
-    }
-
-    public Review(String reviewerName, String gameName, double score, String body) {
+    public Review(String reviewerName, Game game, double score, String body) {
         setReviewerName(reviewerName);
-        setGameName(gameName);
+        setGame(game);
         setScore(score);
         setBody(body);
     }
 
-    public String getGameName() {
-        return gameName;
+    public int getReviewID() {
+        return reviewID;
     }
 
-    public void setGameName(String gameName) {
-        if (gameName != null && !gameName.isEmpty()) {
-            this.gameName = gameName;
-        } else {
-            throw new DomainException("The game name must be filled in");
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        if(game==null){
+            throw new DomainException("This game does not exist");
+        }
+        else {
+            this.game = game;
         }
     }
 
@@ -76,18 +80,12 @@ public class Review {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Review) {
-            Review a = (Review) o;
-            if (this.getGameName().equals(a.getGameName()) && this.getReviewerName().equals(a.getReviewerName())) {
+            Review otherReview = (Review) o;
+            if (this.reviewID==otherReview.reviewID) {
                 return true;
             }
         }
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int result = reviewerName.hashCode();
-        result = 31 * result + gameName.hashCode();
-        return result;
-    }
 }
