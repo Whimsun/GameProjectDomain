@@ -48,8 +48,23 @@ public class DomainTest {
     }
 
     @Test(expected = DomainException.class)
+    public void test_Game_throws_domainexception_with_name_empty(){
+        Game game=new Game("",genre);
+    }
+
+    @Test(expected = DomainException.class)
+    public void test_Game_throws_domainexception_with_genre_empty(){
+        Game game=new Game(name,"");
+    }
+
+    @Test(expected = DomainException.class)
     public void test_Review_throws_domainexception_with_reviewername_null(){
         Review review=new Review(null,game,5.0,"Alright");
+    }
+
+    @Test(expected = DomainException.class)
+    public void test_Review_throws_domainexception_with_reviewername_empty(){
+        Review review=new Review("",game,5.0,"Alright");
     }
 
     @Test(expected = DomainException.class)
@@ -65,6 +80,11 @@ public class DomainTest {
     @Test(expected = DomainException.class)
     public void test_Review_throws_domainexception_with_body_null(){
         Review review=new Review("Jack",game,5.0,null);
+    }
+
+    @Test(expected = DomainException.class)
+    public void test_Review_throws_domainexception_with_body_empty(){
+        Review review=new Review("Jack",game,5.0,"");
     }
 
 }

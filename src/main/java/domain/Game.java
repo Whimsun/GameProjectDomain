@@ -15,6 +15,7 @@ public class Game {
 
     public Game(){
         gameID= nextGameID.incrementAndGet();
+        reviews=new ArrayList<Review>();
     }
 
     public Game(String name, String genre) {
@@ -33,7 +34,7 @@ public class Game {
     }
 
     public void setName(String name) {
-        if( name!=null){this.name = name;}else throw new DomainException("name is empty");
+        if( name!=null&&!name.isEmpty()){this.name = name;}else throw new DomainException("name is empty");
     }
 
     public String getGenre() {
@@ -41,7 +42,7 @@ public class Game {
     }
 
     public void setGenre(String genre) {
-        if(genre!=null){this.genre = genre;}else throw new DomainException("genre is empty");
+        if(genre!=null&&!genre.isEmpty()) {this.genre = genre;}else throw new DomainException("genre is empty");
     }
 
     public ArrayList<Review> getReviews() {
