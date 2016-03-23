@@ -5,13 +5,14 @@ import domain.Review;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Tim on 14/02/2016.
  */
 public class ReviewRepositoryHashMap implements ReviewRepository {
 
-    private HashMap<Integer,Review> reviews = new HashMap<Integer, Review>();
+    private static Map<Integer,Review> reviews = new HashMap<Integer, Review>();
 
     public ReviewRepositoryHashMap() {
     }

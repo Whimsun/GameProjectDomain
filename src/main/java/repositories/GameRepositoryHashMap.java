@@ -6,13 +6,13 @@ import domain.ServiceFacade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Tim on 17/02/2016.
  */
 public class GameRepositoryHashMap implements GameRepository {
-    private HashMap<Integer,Game> games = new HashMap<Integer,Game>();
-    private ReviewService service;
+    private Map<Integer,Game> games = new HashMap<Integer,Game>();
 
     public GameRepositoryHashMap() {
         Game defaultGame=new Game("Metal Gear Solid","Stealth");
