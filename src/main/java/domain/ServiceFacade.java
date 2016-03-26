@@ -61,23 +61,22 @@ public class ServiceFacade {
         gameService.add(game);
     }
 
-    public void updateReview(int reviewID, String reviewerName, double score, String body){
-        reviewService.update(reviewID, reviewerName, score, body);
+    public void updateReview(Review review){
+        reviewService.update(review);
     }
 
-    public void updateGame(int gameID,String name,String genre){
-        gameService.update(gameID,name,genre);
+    public void updateGame(Game game){
+        gameService.update(game);
     }
 
-    public void removeReview(int reviewID){
-        Review review=reviewService.getReview(reviewID);
+    public void removeReview(Review review){
         review.getGame().removeReview(review);
-        reviewService.remove(reviewID);
+        reviewService.remove(review);
     }
 
-    public void removeGame(int gameID){
-        gameService.remove(gameID);
-        reviewService.removeAllOfGame(gameID);
+    public void removeGame(Game game){
+        gameService.remove(game);
+        reviewService.removeAllOfGame(game.getGameID());
     }
 
 }

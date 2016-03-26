@@ -1,13 +1,20 @@
 package domain;
 
-import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Tim on 14/02/2016.
  */
+@Entity
 public class Review {
-    static AtomicInteger nextReviewID = new AtomicInteger();
+    @Id
+    @GeneratedValue
     private int reviewID;
+    @ManyToOne
     private Game game;
     private String reviewerName;
     private double score;
@@ -23,9 +30,21 @@ public class Review {
         setScore(score);
         setBody(body);
     }
+    
+    public Review(int reviewID,String reviewerName, Game game, double score, String body){
+        setReviewID(reviewID);
+        setReviewerName(reviewerName);
+        setGame(game);
+        setScore(score);
+        setBody(body);
+    }
 
     public int getReviewID() {
         return reviewID;
+    }
+
+    public void setReviewID(int reviewID) {
+        this.reviewID = reviewID;
     }
 
     public Game getGame() {

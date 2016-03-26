@@ -2,8 +2,6 @@ package repositories;
 
 import domain.Review;
 
-import java.util.ArrayList;
-
 /**
  * Created by Tim on 17/02/2016.
  */
@@ -30,12 +28,12 @@ public class ReviewService {
         reviewRepository.add(review);
     }
 
-    public void update(int reviewID, String reviewerName, double score, String body) {
-        reviewRepository.update(reviewID,reviewerName,score,body);
+    public void update(Review review) {
+        reviewRepository.update(review);
     }
 
-    public void remove(int reviewID) {
-        reviewRepository.remove(reviewID);
+    public void remove(Review review) {
+        reviewRepository.remove(review);
     }
 
     public void removeAllOfGame(int gameID){

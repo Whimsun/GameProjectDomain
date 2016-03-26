@@ -10,4 +10,7 @@ public class RepositoryException extends RuntimeException {
     public RepositoryException(String string){
         super(string);
     }
+    public RepositoryException(String string,Exception e){
+        super(string,e);
+    }
 }

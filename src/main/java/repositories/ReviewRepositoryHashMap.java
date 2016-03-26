@@ -2,16 +2,16 @@ package repositories;
 
 import domain.Review;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Tim on 14/02/2016.
  */
 public class ReviewRepositoryHashMap implements ReviewRepository {
-
+    static AtomicInteger nextReviewID = new AtomicInteger();
     private static Map<Integer,Review> reviews = new HashMap<Integer, Review>();
 
     public ReviewRepositoryHashMap() {
@@ -26,18 +26,18 @@ public class ReviewRepositoryHashMap implements ReviewRepository {
         if(review==null){
             throw new RepositoryException("Error adding review");
         }
-        reviews.put(review.getReviewID(),review);
+        int id=nextReviewID.incrementAndGet();
+        review.setReviewID(id);
+        reviews.put(id,review);
     }
 
-    public void update(int reviewID, String reviewerName, double score, String body) {
-        Review reviewToEdit=reviews.get(reviewID);
-        reviewToEdit.setReviewerName(reviewerName);
-        reviewToEdit.setScore(score);
-        reviewToEdit.setBody(body);
+    public void update(Review review) {
+        int id=review.getReviewID();
+        reviews.replace(id, review);
     }
 
-    public void remove(int reviewID) {
-        reviews.remove(reviewID);
+    public void remove(Review review) {
+        reviews.remove(review.getReviewID());
     }
 
     public void removeAllOfGame(int gameID) {

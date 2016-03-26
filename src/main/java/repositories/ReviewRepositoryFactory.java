@@ -9,7 +9,7 @@ public class ReviewRepositoryFactory {
             return new ReviewRepositoryHashMap();
         }
         if(repositoryType.equals("database")) {
-            return new ReviewRepositoryDatabase();
+            return new ReviewRepositoryDatabase("GameProjectPU");
         }
         else throw new IllegalArgumentException();
     }

@@ -9,7 +9,7 @@ public class GameRepositoryFactory {
             return new GameRepositoryHashMap();
         }
         if(repositoryType.equals("database")) {
-            return new GameRepositoryDatabase();
+            return new GameRepositoryDatabase("GameProjectPU");
         }
         else throw new IllegalArgumentException();
     }

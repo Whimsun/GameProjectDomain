@@ -1,25 +1,37 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Created by Tim on 14/02/2016.
  */
+@Entity
 public class Game {
-    static AtomicInteger nextGameID = new AtomicInteger();
+    @Id
+    @GeneratedValue
     private int gameID;
     private String name;
     private String genre;
-    private ArrayList<Review> reviews;
+    @OneToMany(mappedBy = "game",orphanRemoval = true)
+    private List<Review> reviews;
 
     public Game(){
-        gameID= nextGameID.incrementAndGet();
         reviews=new ArrayList<Review>();
     }
 
     public Game(String name, String genre) {
-        gameID= nextGameID.incrementAndGet();
+        setName(name);
+        setGenre(genre);
+        reviews=new ArrayList<Review>();
+    }
+    
+    public Game(int id,String name,String genre){
+        setGameID(id);
         setName(name);
         setGenre(genre);
         reviews=new ArrayList<Review>();
@@ -27,6 +39,10 @@ public class Game {
 
     public int getGameID() {
         return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
     public String getName() {
@@ -45,7 +61,7 @@ public class Game {
         if(genre!=null&&!genre.isEmpty()) {this.genre = genre;}else throw new DomainException("genre is empty");
     }
 
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
@@ -55,6 +71,7 @@ public class Game {
         }
         else {
             reviews.add(review);
+            review.setGame(this);
         }
     }
 
@@ -66,6 +83,7 @@ public class Game {
             reviews.remove(review);
         }
     }
+    
 
     public double getAverageScore() {
         double totalScore = 0;

@@ -1,22 +1,23 @@
 package repositories;
 
 import domain.Game;
-import domain.ServiceFacade;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Tim on 17/02/2016.
  */
 public class GameRepositoryHashMap implements GameRepository {
+    static AtomicInteger nextGameID = new AtomicInteger();
     private Map<Integer,Game> games = new HashMap<Integer,Game>();
 
     public GameRepositoryHashMap() {
         Game defaultGame=new Game("Metal Gear Solid","Stealth");
-        games.put(defaultGame.getGameID(),defaultGame);
+        int Id=nextGameID.incrementAndGet();
+        defaultGame.setGameID(Id);
+        games.put(Id,defaultGame);
     }
 
     public Collection<Game> getAllGames() {
@@ -29,18 +30,19 @@ public class GameRepositoryHashMap implements GameRepository {
 
     public void add(Game game) {
         if (game != null) {
-            games.put(game.getGameID(),game);
-        }else throw new RepositoryException();
+            int Id=nextGameID.incrementAndGet();
+            game.setGameID(Id);
+            games.put(Id,game);
+        }else throw new RepositoryException("Failed to add game");
     }
 
-    public void update(int gameID, String name, String genre) {
-        Game gameToEdit=games.get(gameID);
-        gameToEdit.setName(name);
-        gameToEdit.setGenre(genre);
+    public void update(Game game) {
+        int id=game.getGameID();
+        games.replace(id, game);
     }
 
-    public void remove(int gameID) {
-        games.remove(gameID);
+    public void remove(Game game) {
+        games.remove(game.getGameID());
     }
 
 }

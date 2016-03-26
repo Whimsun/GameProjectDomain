@@ -25,12 +25,12 @@ public class GameService {
     public Collection<Game> getAll(){
         return gameRepository.getAllGames();
     }
-    public void update(int gameID,String name,String Genre){
-        gameRepository.update(gameID,name,Genre);
+    public void update(Game game){
+        gameRepository.update(game);
     }
 
-    public void remove(int gameID){
-        gameRepository.remove(gameID);
+    public void remove(Game game){
+        gameRepository.remove(game);
     }
 
     public GameRepository getGameRepository() {

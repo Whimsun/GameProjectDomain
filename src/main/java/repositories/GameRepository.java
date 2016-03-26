@@ -12,6 +12,6 @@ public interface GameRepository {
     Collection<Game> getAllGames();
     Game getGame(int gameID);
     void add(Game game);
-    void update(int gameID,String name,String genre);
-    void remove(int gameID);
+    void update(Game game);
+    void remove(Game game);
 }
