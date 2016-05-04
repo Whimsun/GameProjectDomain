@@ -1,7 +1,6 @@
 package domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +15,6 @@ public class Review {
     @GeneratedValue
     private int reviewID;
     @ManyToOne
-    @JsonBackReference
     private Game game;
     private String reviewerName;
     private double score;
@@ -24,12 +22,6 @@ public class Review {
 
     public Review(){
 
-    }
-    
-    public Review(String reviewerName, double score,String body){
-        setReviewerName(reviewerName);
-        setScore(score);
-        setBody(body);
     }
 
     public Review(String reviewerName, Game game, double score, String body) {

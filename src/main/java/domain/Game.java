@@ -1,7 +1,5 @@
 package domain;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -20,7 +18,6 @@ public class Game {
     private String name;
     private String genre;
     @OneToMany(mappedBy = "game",orphanRemoval = true)
-    @JsonManagedReference
     private List<Review> reviews;
 
     public Game(){
@@ -67,10 +64,6 @@ public class Game {
     public List<Review> getReviews() {
         return reviews;
     }
-    
-    public void setReviews(List<Review> reviews){
-        this.reviews=reviews;
-    }
 
     public void addReview(Review review){
         if (review == null) {
@@ -111,12 +104,5 @@ public class Game {
         return this.gameID==othergame.gameID;
 
     }
-
-    @Override
-    public String toString() {
-        return "Game{" + "gameID=" + gameID + ", name=" + name + ", genre=" + genre + '}';
-    }
-    
-    
 
 }
