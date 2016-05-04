@@ -62,6 +62,7 @@ public class GameRepositoryDatabase implements GameRepository{
         manager.getTransaction().begin();
         gameToEdit.setName(game.getName());
         gameToEdit.setGenre(game.getGenre());
+        manager.merge(gameToEdit);
         manager.getTransaction().commit();
     }
 
