@@ -9,76 +9,47 @@ import javax.persistence.Persistence;
  * Created by Tim on 17/02/2016.
  */
 public class ReviewRepositoryDatabase implements ReviewRepository {
-
     private EntityManagerFactory factory;
-
+    private EntityManager manager;
     public ReviewRepositoryDatabase(String name) {
-        factory = Persistence.createEntityManagerFactory(name);
-
+        factory=Persistence.createEntityManagerFactory(name);
+        manager=factory.createEntityManager();
     }
-
-    public void closeConnection() {
-        try {
-            factory.close();
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
+    
+    public void closeConnection(){
+        try{
+        manager.close();
+        factory.close();
+        }catch(Exception e){
+            throw new RepositoryException(e.getMessage(),e);
         }
     }
 
-    public EntityManager getManager() {
-        return factory.createEntityManager();
-    }
 
     public Review getReview(int reviewID) {
-        EntityManager manager = getManager();
-        try {
-            return manager.find(Review.class, reviewID);
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
-        }
-
+       return manager.find(Review.class, reviewID);
     }
 
     public void add(Review review) {
-        EntityManager manager = getManager();
-        try {
-            manager.getTransaction().begin();
-            manager.persist(review);
-            manager.flush();
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
+       try{
+        manager.getTransaction().begin();
+        manager.persist(review);
+        manager.flush();
+        manager.getTransaction().commit();
+        }catch(Exception e){
+            throw new RepositoryException(e.getMessage(),e);
         }
     }
 
     public void update(Review review) {
-        EntityManager manager = getManager();
-        try {
-            manager.merge(review);
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
-        }
+        manager.merge(review);
     }
 
     public void remove(Review review) {
-        EntityManager manager = getManager();
-        try {
-            manager.remove(review);
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
-        }
+        manager.remove(review);
     }
 
-    public void removeAllOfGame(int gameID) {
-        //not used
+    public void removeAllOfGame(int GameID) {
+        //do nothing
     }
-
 }

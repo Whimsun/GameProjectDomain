@@ -11,90 +11,63 @@ import javax.persistence.Query;
 /**
  * Created by Tim on 17/02/2016.
  */
-public class GameRepositoryDatabase implements GameRepository {
-
+public class GameRepositoryDatabase implements GameRepository{
     private EntityManagerFactory factory;
-
-    public GameRepositoryDatabase(String name) {
-        factory = Persistence.createEntityManagerFactory(name);
+    private EntityManager manager;
+    public GameRepositoryDatabase(String name){
+        factory=Persistence.createEntityManagerFactory(name);
+        manager=factory.createEntityManager();
     }
-
-    public void closeConnection() {
-        try {
-            factory.close();
-        } catch (Exception e) {
-            throw new RepositoryException(e.getMessage(), e);
+    
+    public void closeConnection(){
+        try{
+        manager.close();
+        factory.close();
+        }catch(Exception e){
+            throw new RepositoryException(e.getMessage(),e);
         }
     }
 
-    public EntityManager getManager() {
-        return factory.createEntityManager();
-    }
-
     public Collection<Game> getAllGames() {
-        EntityManager manager = getManager();
-        try {
-            Query query = manager.createQuery("select g from Game g");
-            return query.getResultList();
-        } catch (Exception e) {
+        try{
+        Query query=manager.createQuery("select g from Game g");
+        return query.getResultList();
+        }catch(Exception e){
             throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
         }
     }
 
     public Game getGame(int gameID) {
-        EntityManager manager = getManager();
-        try {
+        try{
             return manager.find(Game.class, gameID);
-        } catch (Exception e) {
+        }catch(Exception e){
             throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
         }
     }
 
     public void add(Game game) {
-        EntityManager manager = getManager();
-        try {
-            manager.getTransaction().begin();
-            manager.persist(game);
-            manager.flush();
-            manager.getTransaction().commit();
-        } catch (Exception e) {
+        try{
+        manager.getTransaction().begin();
+        manager.persist(game);
+        manager.flush();
+        manager.getTransaction().commit();
+        }catch(Exception e){
             manager.getTransaction().rollback();
-            throw new RepositoryException(e.getMessage(), e);
-        } finally {
-            manager.close();
+            throw new RepositoryException(e.getMessage(),e);
         }
     }
 
     public void update(Game game) {
-        EntityManager manager = getManager();
-        Game gameToEdit = manager.find(Game.class, game.getGameID());
-        try {
-            manager.getTransaction().begin();
-            gameToEdit.setName(game.getName());
-            gameToEdit.setGenre(game.getGenre());
-            manager.merge(gameToEdit);
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            manager.getTransaction().rollback();
-        } finally {
-            manager.close();
-        }
+        Game gameToEdit=manager.find(Game.class, game.getGameID());
+        manager.getTransaction().begin();
+        gameToEdit.setName(game.getName());
+        gameToEdit.setGenre(game.getGenre());
+        manager.getTransaction().commit();
     }
 
     public void remove(Game game) {
-        EntityManager manager = getManager();
-        try {
-            manager.getTransaction().begin();
-            manager.remove(game);
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            manager.getTransaction().rollback();
-        } finally {
-            manager.close();
-        }
+        manager.getTransaction().begin();
+        manager.remove(game);
+        manager.getTransaction().commit();
     }
 }
