@@ -58,10 +58,8 @@ public class GameRepositoryDatabase implements GameRepository{
     }
 
     public void update(Game game) {
-        Game gameToEdit=manager.find(Game.class, game.getGameID());
         manager.getTransaction().begin();
-        gameToEdit.setName(game.getName());
-        gameToEdit.setGenre(game.getGenre());
+        manager.merge(game);
         manager.getTransaction().commit();
     }
 
