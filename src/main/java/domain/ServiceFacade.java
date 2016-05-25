@@ -78,5 +78,10 @@ public class ServiceFacade {
         gameService.remove(game);
         reviewService.removeAllOfGame(game.getGameID());
     }
+    
+    public void destroy(){
+        gameService.destroy();
+        reviewService.destroy();
+    }
 
 }

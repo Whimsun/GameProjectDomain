@@ -48,4 +48,8 @@ public class ReviewRepositoryHashMap implements ReviewRepository {
             }
         }
     }
+    
+    public void destroy(){
+        //do nothing
+    }
 }

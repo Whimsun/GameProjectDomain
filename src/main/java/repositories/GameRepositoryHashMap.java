@@ -44,5 +44,9 @@ public class GameRepositoryHashMap implements GameRepository {
     public void remove(Game game) {
         games.remove(game.getGameID());
     }
+    
+    public void destroy(){
+        //do nothing
+    }
 
 }

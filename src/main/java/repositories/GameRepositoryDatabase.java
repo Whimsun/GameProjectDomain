@@ -19,7 +19,7 @@ public class GameRepositoryDatabase implements GameRepository{
         manager=factory.createEntityManager();
     }
     
-    public void closeConnection(){
+    public void destroy(){
         try{
         manager.close();
         factory.close();
@@ -68,4 +68,5 @@ public class GameRepositoryDatabase implements GameRepository{
         manager.remove(game);
         manager.getTransaction().commit();
     }
+
 }

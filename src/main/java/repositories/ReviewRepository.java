@@ -11,4 +11,5 @@ public interface ReviewRepository {
     void update(Review review);
     void remove(Review review);
     void removeAllOfGame(int gameID);
+    void destroy();
 }

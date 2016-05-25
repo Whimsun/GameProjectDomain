@@ -41,4 +41,8 @@ public class GameService {
         this.gameRepository = GameRepositoryFactory.createRepository(repositoryType);
 
     }
+    
+    public void destroy(){
+        gameRepository.destroy();
+    }
 }

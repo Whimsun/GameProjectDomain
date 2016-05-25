@@ -16,7 +16,7 @@ public class ReviewRepositoryDatabase implements ReviewRepository {
         manager=factory.createEntityManager();
     }
     
-    public void closeConnection(){
+    public void destroy(){
         try{
         manager.close();
         factory.close();

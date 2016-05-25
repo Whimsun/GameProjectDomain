@@ -14,4 +14,5 @@ public interface GameRepository {
     void add(Game game);
     void update(Game game);
     void remove(Game game);
+    void destroy();
 }

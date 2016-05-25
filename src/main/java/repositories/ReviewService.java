@@ -39,4 +39,8 @@ public class ReviewService {
     public void removeAllOfGame(int gameID){
         reviewRepository.removeAllOfGame(gameID);
     }
+    
+    public void destroy(){
+        reviewRepository.destroy();
+    }
 }
